@@ -27,9 +27,9 @@ task:
     - apt-get -qqy install mariadb-server make curl php-cli php-xml php-gd php-mysql php-mbstring php-bcmath php-json >/dev/null
     # MariaDB has no systemd props in Ubuntu 16.04, rc.d props work even in
     # Ubuntu 20.04.
-    - test -S /var/run/mysqld/mysqld.sock && service mariadb stop
+    - test -S /var/run/mysqld/mysqld.sock && systemctl stop mariadb
     - printf "[mysqld]\ncharacter-set-server=utf8\n" > /etc/mysql/conf.d/charset.cnf
-    - service mariadb start
+    - systemctl start mariadb
     - mariadb --version
     - php --version
     - ./tests/ci_download_phpunit.sh
